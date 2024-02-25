@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database displayer</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/starter_template/staticcss" type="text/css">
+</head>
+<body>
+<main>
+    <h1>Database onderzoek</h1>
+    <p>Alle rijen in de tabel <b>{{ table_name }}</b>:</p>
+    <table>
+        <thead>
+        <tr>
+            {% for column in columns %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in rows %}
+        <tr>
+            {% for field in row %}
+            <td>{{ field }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</main>
+</body>
+
+</html>

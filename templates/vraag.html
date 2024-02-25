@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='/css/main.css') }}">
+    <title>{{ title }}</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand tc-navbar">
+        <div class="container">
+            <a href="{{ url_for('home') }}" class="navbar-brand">
+                <img src="{{ url_for('static', filename='/images/test_correct_logo.svg') }}" alt="Test-correct" width="225" height="">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a id="home" href="{{ url_for('home') }}" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a id="vragen" href="{{ url_for('vragen') }}" class="nav-link">Vragen</a>
+                </li>
+                <li class="nav-item">
+                    <a id="datakwaliteit" href="{{ url_for('datakwaliteit') }}" class="nav-link">Datakwaliteit</a>
+                </li>
+                <li class="nav-item">
+                    <a id="logout" href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <section class="tc-section">
+        <div class="container" style="width: 50%">
+            <div class="row row-cols-1 gy-3">
+                <div class="col">
+                   <a href="{{ url_for('vragen') }}" class="btn btn-outline-danger"><i class="bi bi-arrow-left"></i> Terug naar lijst</a>
+                </div>
+                <div class="col">
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon1">ID</span>
+                      <button class="btn btn-dark" data-bs-toggle="popover" data-bs-placement="right"
+                         data-bs-trigger="hover" data-bs-content="Klik om te kopieren" aria-describedby="basic-addon1" onclick="copyId(this)">
+                      {{ vraag.id }}
+                      </button>
+                    </div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text" id="basic-addon2">Leerdoel</span>
+                      <button class="btn btn-dark" data-bs-toggle="popover" data-bs-placement="right"
+                         data-bs-trigger="hover" data-bs-content="Klik om te kopieren" aria-describedby="basic-addon2" onclick="copyId(this)">
+                      {% if vraag.leerdoel == none or vraag.leerdoel > leerdoelen[-1].id %}
+                         {{ vraag.leerdoel }} - Invalide
+                      {% else %}
+                         {{ vraag.leerdoel }}
+                      {% endif %}
+                      </button>
+                    </div>
+                </div>
+            <div class="col">
+                {% if vraag.gemarkeerd == 1 %}
+                    <input onchange="fixMarkeer(this)" type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off" checked>
+                    <label id="markeerLabel" class="btn btn-outline-primary" for="btn-check-outlined"><i class="bi bi-bookmark-fill"></i> Gemarkeerd</label>
+                {% else %}
+                    <input onchange="fixMarkeer(this)" type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                    <label id="markeerLabel" class="btn btn-outline-primary" for="btn-check-outlined"><i class="bi bi-bookmark"></i> Markeer</label>
+                {% endif %}
+            </div>
+                <div class="col">
+                    <div>
+                        <h3>Vraag:</h3>
+                        <p>{{ marked_vraag }}</p>
+                    </div>
+                </div>
+                <form action="{{ url_for('vraag', vraag_id=vraag.id) }}" class="row row-cols-1 gy-3" id="vraag-form" name="vraag-form" data-name="Vraag Form" method="POST" aria-label="Vraag Form">
+                    {{ form.hidden_tag() }}
+                    <div class="col">
+                        <div>
+                            <h3>Pas aan:</h3>
+                            {{ form.vraag(class="form-control", style="height: 110px") }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div>
+                            {{ form.leerdoel(class="form-select") }}
+                        </div>
+                    </div>
+                    <div class="col">
+                        {{ form.opslaan(class="btn btn-success") }}
+                    </div>
+                    <input id="markeerValue" type="hidden" name="gemarkeerd" value="{{ vraag.gemarkeerd }}">
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <script src="{{ url_for('static', filename='/js/main.js') }}"></script>
+  </body>
+</html>

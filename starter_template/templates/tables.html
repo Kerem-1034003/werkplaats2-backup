@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Database displayer</title>
+    <meta name="description" content="Simple database display"/>
+    <meta name="author" content="Rotterdam Academy"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="/starter_template/staticcss" type="text/css">
+</head>
+<body>
+<main>
+    <h1>Database onderzoek</h1>
+    <p>Alle tabellen in de database <i>{{ database_file }}</i>:</p>
+    <ul>
+        {% for table in table_list %}
+        <li><a href="/table_details/{{ table }}">{{ table }}</a></li>
+        {% endfor %}
+    </ul>
+</main>
+</body>
+</html>

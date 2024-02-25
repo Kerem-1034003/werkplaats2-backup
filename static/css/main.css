@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+
+body{
+  font-family: 'Nunito', sans-serif;
+    background-color: #f5f7fa;
+}
+
+.box {
+  background-color: lightblue;
+  border: 1px solid blue;
+  min-height: 50px;
+  font-size: 2rem;
+}
+
+.tc-navbar {
+  background-color: #ffffff;
+}
+
+.tc-section {
+    padding-top: 50px;
+}
+
+.tc-collapse-box {
+    display: inline-block;
+    padding: 25px;
+    border-radius: 0px 25px 25px 25px;
+    background-color: #ffffff;
+}
+
+.tc-button {
+    margin-right: 5px;
+}
